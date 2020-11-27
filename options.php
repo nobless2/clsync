@@ -26,22 +26,24 @@ $request = \Bitrix\Main\HttpApplication::getInstance()->getContext()->getRequest
 
 $aTabs = array(
     array(
-        'DIV' => 'edit1',
-        'TAB' => Loc::getMessage('ACADEMY_D7_TAB_SETTINGS'),
-        'OPTIONS' => array(
-            array('field_text', Loc::getMessage('ACADEMY_D7_FIELD_TEXT_TITLE'),
-                '',
-                array('textarea', 10, 50)),
-            array('field_line', Loc::getMessage('ACADEMY_D7_FIELD_LINE_TITLE'),
-                '',
-                array('text', 10)),
-            array('field_list', Loc::getMessage('ACADEMY_D7_FIELD_LIST_TITLE'),
-                '',
-                array('multiselectbox',array('var1'=>'var1','var2'=>'var2','var3'=>'var3','var4'=>'var4'))),
+        'DIV' => 'main',
+        'TAB' => Loc::getMessage('KOPYTOV_CLSYNC_TAB_SETTINGS'),
+        'GROUPS' => array(
+            'ACCESSES' => array(
+                'HEADER' => Loc::getMessage('KOPYTOV_CLSYNC_HEADER_ACCESSES'),
+                'OPTIONS' => array(
+                    array('field_line', Loc::getMessage('KOPYTOV_CLSYNC_FIELD_LINE_TITLE'),
+                        '',
+                        array('text', 10)),
+                    array('field_list', Loc::getMessage('KOPYTOV_CLSYNC_FIELD_LIST_TITLE'),
+                        '',
+                        array('multiselectbox',array('var1'=>'var1','var2'=>'var2','var3'=>'var3','var4'=>'var4'))),
+                )
+            )
         )
     ),
     array(
-        "DIV" => "edit2",
+        "DIV" => "rights",
         "TAB" => Loc::getMessage("MAIN_TAB_RIGHTS"),
         "TITLE" => Loc::getMessage("MAIN_TAB_TITLE_RIGHTS")
     ),
@@ -54,21 +56,31 @@ if ($request->isPost() && $request['Update'] && check_bitrix_sessid())
     foreach ($aTabs as $aTab)
     {
         //Или можно использовать __AdmSettingsSaveOptions($MODULE_ID, $arOptions);
-        foreach ($aTab['OPTIONS'] as $arOption)
+        foreach ($aTab['GROUPS'] as $arTabGroups)
         {
-            if (!is_array($arOption)) //Строка с подсветкой. Используется для разделения настроек в одной вкладке
-                continue;
+           foreach ($arTabGroups as $arTabGroup)
+           {
+               if (!empty($arTabGroup['OPTIONS']))
+                   continue;
 
-            if ($arOption['note']) //Уведомление с подсветкой
-                continue;
+               foreach ($arTabGroup['OPTIONS'] as $arOption)
+               {
+                   if (!is_array($arOption)) //Строка с подсветкой. Используется для разделения настроек в одной вкладке
+                       continue;
+
+                   if ($arOption['note']) //Уведомление с подсветкой
+                       continue;
 
 
-            //Или __AdmSettingsSaveOption($MODULE_ID, $arOption);
-            $optionName = $arOption[0];
+                   //Или __AdmSettingsSaveOption($MODULE_ID, $arOption);
+                   $optionName = $arOption[0];
 
-            $optionValue = $request->getPost($optionName);
+                   $optionValue = $request->getPost($optionName);
 
-            Option::set($module_id, $optionName, is_array($optionValue) ? implode(",", $optionValue):$optionValue);
+                   Option::set($module_id, $optionName, is_array($optionValue) ? implode(",", $optionValue):$optionValue);
+               }
+
+           }
         }
     }
 }
@@ -79,7 +91,7 @@ $tabControl = new CAdminTabControl('tabControl', $aTabs);
 
 ?>
 <? $tabControl->Begin(); ?>
-<form method='post' action='<?echo $APPLICATION->GetCurPage()?>?mid=<?=htmlspecialcharsbx($request['mid'])?>&amp;lang=<?=$request['lang']?>' name='academy_d7_settings'>
+<form method='post' action='<?echo $APPLICATION->GetCurPage()?>?mid=<?=htmlspecialcharsbx($request['mid'])?>&amp;lang=<?=$request['lang']?>' name='KOPYTOV_CLSYNC_settings'>
 
     <? foreach ($aTabs as $aTab):
         if($aTab['OPTIONS']):?>

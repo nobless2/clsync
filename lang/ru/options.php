@@ -1,13 +1,10 @@
 <?php
 /**
  * Created by PhpStorm
- * User: Sergey Pokoev
- * www.pokoev.ru
- * @ Академия 1С-Битрикс - 2015
- * @ academy.1c-bitrix.ru
+ * User: Pavel Kopytov
  */
 
-$MESS["ACADEMY_D7_TAB_SETTINGS"] = "Основные настройки";
-$MESS["ACADEMY_D7_FIELD_TEXT_TITLE"] = "Поле типа текст";
-$MESS["ACADEMY_D7_FIELD_LINE_TITLE"] = "Поле типа строка";
-$MESS["ACADEMY_D7_FIELD_LIST_TITLE"] = "Поле типа список";
+$MESS["KOPYTOV_CLSYNC_TAB_SETTINGS"] = "Основные настройки";
+$MESS["KOPYTOV_CLSYNC_FIELD_LINE_TITLE"] = "Поле типа строка";
+$MESS["KOPYTOV_CLSYNC_FIELD_LIST_TITLE"] = "Поле типа список";
+$MESS["KOPYTOV_CLSYNC_HEADER_ACCESSES"] = "Доступы в CloudLoyalty";

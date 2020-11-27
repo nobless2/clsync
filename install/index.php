@@ -137,6 +137,7 @@ Class kopytov_clsync extends CModule
             \Bitrix\Main\ModuleManager::registerModule($this->MODULE_ID);
 
             #работа с .settings.php
+            /*
             $configuration = Conf\Configuration::getInstance();
             $$prepModuleName = array(
                 'live' => array(
@@ -150,6 +151,7 @@ Class kopytov_clsync extends CModule
             );
             $configuration->add($prepModuleName, $$prepModuleName);
             $configuration->saveConfiguration();
+            */
             #работа с .settings.php
 
         } elseif (!$this->isCatalogInstalled()) {
@@ -173,9 +175,11 @@ Class kopytov_clsync extends CModule
         \Bitrix\Main\ModuleManager::unRegisterModule($this->MODULE_ID);
 
         #работа с .settings.php
+        /*
         $configuration = Conf\Configuration::getInstance();
         $configuration->delete(strtr($this->MODULE_ID, array('.' => '_')));
         $configuration->saveConfiguration();
+        */
         #работа с .settings.php
 
         $APPLICATION->IncludeAdminFile(Loc::getMessage('KOPYTOV_CLSYNC_UNINSTALL_TITLE'), $this->GetPath() . '/install/unstep.php');
